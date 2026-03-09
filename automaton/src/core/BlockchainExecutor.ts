@@ -39,6 +39,15 @@ export class BlockchainExecutor {
       explorerUrl: 'https://etherscan.io'
     });
 
+    this.chainConfigs.set('sepolia', {
+      name: 'Ethereum Sepolia',
+      rpcUrl: process.env.SEPOLIA_RPC || 'https://rpc.sepolia.org',
+      chainId: 11155111,
+      nativeToken: 'ETH',
+      faucetUrl: 'https://cloud.google.com/application/web3/faucet/ethereum/sepolia',
+      explorerUrl: 'https://sepolia.etherscan.io'
+    });
+
     this.chainConfigs.set('linea', {
       name: 'Linea',
       rpcUrl: process.env.LINEA_RPC || 'https://rpc.linea.build',

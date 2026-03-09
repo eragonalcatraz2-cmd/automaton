@@ -76,7 +76,7 @@ export class ReActAgentV2 {
       throw new Error('PRIVATE_KEY environment variable not set');
     }
 
-    const chains = ['linea', 'scroll', 'base'];
+    const chains = ['sepolia', 'linea', 'scroll', 'base'];
     
     for (const chain of chains) {
       try {
@@ -150,12 +150,13 @@ export class ReActAgentV2 {
     try {
       // Get real balances from all chains
       let totalBalance = 0n;
-      const chains = ['linea', 'scroll', 'base'];
+      const chains = ['sepolia', 'linea', 'scroll', 'base'];
       
       for (const chain of chains) {
         try {
           const balance = await this.blockchain.getBalance(chain);
           totalBalance += balance;
+          console.log(`[BALANCE] ${chain}: ${Number(balance) / 1e18} ETH`);
         } catch (e) {
           // Chain not initialized, skip
         }
@@ -166,7 +167,7 @@ export class ReActAgentV2 {
       this.state!.balance = balanceInEth;
       await this.db.saveAgentState(this.state!);
       
-      console.log(`[BALANCE] Real balance: ${balanceInEth.toFixed(6)} ETH`);
+      console.log(`[BALANCE] Total balance: ${balanceInEth.toFixed(6)} ETH`);
     } catch (error) {
       console.error('[BALANCE] Failed to update:', error.message);
     }
