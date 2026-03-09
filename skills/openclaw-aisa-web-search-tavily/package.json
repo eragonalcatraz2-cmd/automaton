@@ -1,0 +1,13 @@
+{
+  "name": "openclaw-aisa-web-search-tavily",
+  "version": "1.0.0",
+  "description": "AI-optimized web search via Tavily API proxy, providing concise and relevant results with options for deep or news-focused queries",
+  "author": "AIsaDocs",
+  "license": "MIT",
+  "keywords": [
+    "openclaw-skill",
+    "tavily",
+    "web-search",
+    "ai-search"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "tracked_projects": [],
+  "completed_interactions": [],
+  "wallet_addresses": {
+    "ethereum": "0xED261c7431667c91ef28C1320Ff97cF962689710"
+  },
+  "monitoring_sources": [
+    "https://airdrops.io/",
+    "https://dropsearn.com/",
+    "https://www.airdropalert.com/",
+    "https://defillama.com/airdrops"
+  ],
+  "auto_participate": false,
+  "risk_level": "conservative",
+  "max_concurrent": 5,
+  "created_at": "2026-03-09",
+  "updated_at": "2026-03-09"
+}

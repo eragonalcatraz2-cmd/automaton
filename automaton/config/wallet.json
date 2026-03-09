@@ -1,0 +1,18 @@
+{
+  "ethereum": {
+    "address": "0xED261c7431667c91ef28C1320Ff97cF962689710",
+    "chains": ["ethereum", "polygon", "arbitrum", "optimism", "base", "linea", "scroll"],
+    "testnet": true
+  },
+  "github": {
+    "username": "eragonalcatraz-openclaw1",
+    "repo_prefix": "automaton-"
+  },
+  "sponsor": {
+    "buymeacoffee": "https://buymeacoffee.com/eragonalcatraz.openclaw1",
+    "kofi": "",
+    "github_sponsors": false
+  },
+  "created_at": "2026-03-09",
+  "updated_at": "2026-03-09"
+}
