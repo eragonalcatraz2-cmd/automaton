@@ -1,18 +1,42 @@
 #!/usr/bin/env node
 /**
- * Automaton - 自主AI代理系统
- * 入口文件
+ * Automaton v2.0 - 全自动自主AI代理系统
+ * "Create value or cease to exist"
+ * 
+ * 特性：
+ * - 真实区块链交互（ethers.js）
+ * - 浏览器自动化（puppeteer）
+ * - 全自动空投狩猎
+ * - 零人工干预
  */
 
-import { ReActAgent } from './core/Agent';
+import { ReActAgentV2 } from './core/AgentV2';
 
 async function main() {
-  console.log('╔══════════════════════════════════════════╗');
-  console.log('║     🤖 AUTOMATON v1.0 - Self-Sustaining AI ║');
-  console.log('║        "Create value or cease to exist"    ║');
-  console.log('╚══════════════════════════════════════════╝\n');
+  console.log('╔══════════════════════════════════════════════════════════╗');
+  console.log('║     🤖 AUTOMATON v2.0 - Fully Autonomous AI Agent       ║');
+  console.log('║        "Create value or cease to exist"                  ║');
+  console.log('║                                                          ║');
+  console.log('║  Features:                                               ║');
+  console.log('║  • Real blockchain interactions (ethers.js)              ║');
+  console.log('║  • Browser automation (Puppeteer)                        ║');
+  console.log('║  • Automated airdrop hunting                             ║');
+  console.log('║  • Zero human intervention                               ║');
+  console.log('╚══════════════════════════════════════════════════════════╝\n');
 
-  const agent = new ReActAgent();
+  // Check required environment variables
+  const requiredEnv = ['PRIVATE_KEY'];
+  const missing = requiredEnv.filter(key => !process.env[key]);
+  
+  if (missing.length > 0) {
+    console.error('[ERROR] Missing required environment variables:');
+    console.error(`  ${missing.join(', ')}`);
+    console.error('\nPlease set them before running:');
+    console.error('  export PRIVATE_KEY=your_wallet_private_key');
+    process.exit(1);
+  }
+
+  const agent = new ReActAgentV2();
 
   // Handle graceful shutdown
   process.on('SIGINT', async () => {
@@ -34,7 +58,8 @@ async function main() {
     // Start the agent
     await agent.start();
     
-    console.log('[MAIN] Agent is running. Press Ctrl+C to stop.\n');
+    console.log('[MAIN] Agent is running in FULLY AUTONOMOUS mode.');
+    console.log('[MAIN] Press Ctrl+C to stop.\n');
     
     // Keep the process alive
     while (agent.getStatus().running) {
