@@ -7,7 +7,7 @@
 export type SurvivalTier = 'normal' | 'low_compute' | 'critical' | 'dead';
 
 // 任务类型
-export type TaskType = 'content' | 'code' | 'data' | 'social' | 'research';
+export type TaskType = 'content' | 'code' | 'data' | 'social' | 'research' | 'income' | 'airdrop' | 'opensource' | 'freelance' | 'affiliate';
 
 // 任务状态
 export type TaskStatus = 'pending' | 'running' | 'completed' | 'failed' | 'cancelled';
@@ -29,6 +29,7 @@ export interface AgentState {
 export interface Task {
   id: string;
   type: TaskType;
+  title?: string;
   status: TaskStatus;
   description: string;
   reward: number;         // 完成奖励

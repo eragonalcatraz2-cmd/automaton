@@ -41,7 +41,7 @@ export class BlockchainExecutor {
 
     this.chainConfigs.set('sepolia', {
       name: 'Ethereum Sepolia',
-      rpcUrl: process.env.SEPOLIA_RPC || 'https://rpc.sepolia.org',
+      rpcUrl: process.env.SEPOLIA_RPC || 'https://ethereum-sepolia-rpc.publicnode.com',
       chainId: 11155111,
       nativeToken: 'ETH',
       faucetUrl: 'https://cloud.google.com/application/web3/faucet/ethereum/sepolia',

@@ -43,6 +43,7 @@ export declare class AirdropHunterV2 {
      * 扫描空投机会（通过 API + 爬虫）
      */
     scanForAirdrops(): Promise<AirdropProject[]>;
+    private readonly CONTRACTS;
     private fetchFromSource;
     /**
      * 评估并选择要参与的空投

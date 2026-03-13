@@ -10,6 +10,8 @@ export declare class ReActAgentV2 {
     private browser;
     private airdropHunter;
     private openSourceSponsor;
+    private openSourcePromoter;
+    private revenueGenerator;
     private state;
     private isRunning;
     private readonly agentId;
@@ -23,6 +25,8 @@ export declare class ReActAgentV2 {
     private evaluateAndPrepareAirdrops;
     private executeAirdropTasks;
     private monitorAirdropClaims;
+    private generateIncomeTasks;
+    private checkAndPromoteOpenSource;
     private printAutonomousReport;
     start(): Promise<void>;
     stop(): Promise<void>;

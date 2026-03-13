@@ -1,0 +1,6 @@
+{
+  "name": "firststep-manager",
+  "version": "1.0.0",
+  "description": "FirstStep autonomous agent management skill",
+  "type": "module"
+}

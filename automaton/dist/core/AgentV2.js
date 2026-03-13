@@ -12,6 +12,8 @@ const BlockchainExecutor_1 = require("./BlockchainExecutor");
 const BrowserAutomation_1 = require("./BrowserAutomation");
 const AirdropHunterV2_1 = require("../skills/AirdropHunterV2");
 const OpenSourceSponsor_1 = require("../skills/OpenSourceSponsor");
+const OpenSourcePromoter_1 = require("../skills/OpenSourcePromoter");
+const RevenueGenerator_1 = require("../skills/RevenueGenerator");
 class ReActAgentV2 {
     constructor() {
         this.state = null;
@@ -25,6 +27,8 @@ class ReActAgentV2 {
         this.browser = new BrowserAutomation_1.BrowserAutomation();
         this.airdropHunter = new AirdropHunterV2_1.AirdropHunterV2(this.blockchain, this.browser);
         this.openSourceSponsor = new OpenSourceSponsor_1.OpenSourceSponsor();
+        this.openSourcePromoter = new OpenSourcePromoter_1.OpenSourcePromoter(this.browser);
+        this.revenueGenerator = new RevenueGenerator_1.RevenueGenerator();
     }
     async initialize() {
         console.log('[AGENT] Initializing Automaton v2.0...');
@@ -61,7 +65,8 @@ class ReActAgentV2 {
         if (!privateKey) {
             throw new Error('PRIVATE_KEY environment variable not set');
         }
-        const chains = ['sepolia', 'linea', 'scroll', 'base'];
+        // 初始化所有链的钱包
+        const chains = ['ethereum', 'sepolia', 'linea', 'scroll', 'base'];
         for (const chain of chains) {
             try {
                 const address = await this.blockchain.initializeWallet(chain, privateKey);
@@ -111,6 +116,14 @@ class ReActAgentV2 {
         if (this.heartbeatCount % 30 === 0) {
             await this.monitorAirdropClaims();
         }
+        // Every 20 heartbeats, generate income tasks
+        if (this.heartbeatCount % 20 === 0) {
+            await this.generateIncomeTasks();
+        }
+        // Every 40 heartbeats, check npm stats and promote
+        if (this.heartbeatCount % 40 === 0) {
+            await this.checkAndPromoteOpenSource();
+        }
         // Every 50 heartbeats, print comprehensive report
         if (this.heartbeatCount % 50 === 0) {
             await this.printAutonomousReport();
@@ -121,7 +134,7 @@ class ReActAgentV2 {
         try {
             // Get real balances from all chains
             let totalBalance = 0n;
-            const chains = ['sepolia', 'linea', 'scroll', 'base'];
+            const chains = ['ethereum', 'sepolia', 'linea', 'scroll', 'base'];
             for (const chain of chains) {
                 try {
                     const balance = await this.blockchain.getBalance(chain);
@@ -202,21 +215,46 @@ class ReActAgentV2 {
         console.log('[MONITOR] Checking for claimable airdrops...');
         await this.airdropHunter.monitorAirdropClaims();
     }
+    async generateIncomeTasks() {
+        console.log('[REVENUE] Generating income tasks...');
+        const tasks = await this.revenueGenerator.generateIncomeTasks();
+        for (const task of tasks) {
+            console.log(`[REVENUE] Task: ${task.title} - Potential: $${task.reward}`);
+        }
+    }
+    async checkAndPromoteOpenSource() {
+        console.log('[OPENSOURCE] Checking npm stats and generating promotion...');
+        // 检查 npm 下载统计
+        const statsResult = await this.openSourcePromoter.checkNpmStats();
+        if (statsResult.success) {
+            console.log(`[OPENSOURCE] ${statsResult.output}`);
+        }
+        // 生成推广内容
+        const content = this.openSourcePromoter.generatePromotionalContent();
+        console.log('[OPENSOURCE] Generated promotional content for Twitter, Reddit, Dev.to');
+        // 这里可以自动发布到社交平台（需要配置账号）
+    }
     async printAutonomousReport() {
-        const report = this.airdropHunter.generateReport();
+        const airdropReport = this.airdropHunter.generateReport();
+        const revenueReport = this.revenueGenerator.generateReport();
         console.log('\n╔══════════════════════════════════════════════════════════╗');
-        console.log('║              AUTONOMOUS OPERATION REPORT                 ║');
+        console.log('║           AUTONOMOUS OPERATION REPORT v2.0               ║');
         console.log('╠══════════════════════════════════════════════════════════╣');
         console.log(`║  Heartbeats:       ${this.heartbeatCount.toString().padEnd(36)} ║`);
         console.log(`║  Real Balance:     ${this.state?.balance.toFixed(6).padEnd(36)} ║`);
         console.log(`║  Survival Tier:    ${(this.state?.survivalTier || 'unknown').padEnd(36)} ║`);
         console.log(`║                                                          ║`);
-        console.log(`║  AIRDROPS:                                               ║`);
-        console.log(`║    Discovered:     ${report.totalDiscovered.toString().padEnd(36)} ║`);
-        console.log(`║    Active:         ${report.activeProjects.toString().padEnd(36)} ║`);
-        console.log(`║    Completed:      ${report.completedProjects.toString().padEnd(36)} ║`);
-        console.log(`║    Potential:      $${report.totalPotentialValue.toString().padEnd(35)} ║`);
-        console.log(`║    Gas Spent:      ${report.totalGasSpent.toString().padEnd(36)} ║`);
+        console.log(`║  💰 REVENUE STREAMS:                                     ║`);
+        console.log(`║    Active Streams: ${revenueReport.activeStreams.toString().padEnd(36)} ║`);
+        console.log(`║    Total Earnings: $${revenueReport.totalEarnings.toString().padEnd(35)} ║`);
+        console.log(`║    Monthly Potential: $${revenueReport.potentialMonthly.toString().padEnd(32)} ║`);
+        console.log(`║    Progress to $100: ${revenueReport.progress.toFixed(1)}%${''.padEnd(29)} ║`);
+        console.log(`║                                                          ║`);
+        console.log(`║  🎯 AIRDROPS:                                            ║`);
+        console.log(`║    Discovered:     ${airdropReport.totalDiscovered.toString().padEnd(36)} ║`);
+        console.log(`║    Active:         ${airdropReport.activeProjects.toString().padEnd(36)} ║`);
+        console.log(`║    Completed:      ${airdropReport.completedProjects.toString().padEnd(36)} ║`);
+        console.log(`║    Potential:      $${airdropReport.totalPotentialValue.toString().padEnd(35)} ║`);
         console.log('╚══════════════════════════════════════════════════════════╝\n');
     }
     async start() {

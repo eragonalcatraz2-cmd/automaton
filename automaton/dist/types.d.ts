@@ -3,7 +3,7 @@
  * 核心类型定义
  */
 export type SurvivalTier = 'normal' | 'low_compute' | 'critical' | 'dead';
-export type TaskType = 'content' | 'code' | 'data' | 'social' | 'research';
+export type TaskType = 'content' | 'code' | 'data' | 'social' | 'research' | 'income' | 'airdrop' | 'opensource' | 'freelance' | 'affiliate';
 export type TaskStatus = 'pending' | 'running' | 'completed' | 'failed' | 'cancelled';
 export interface AgentState {
     id: string;
@@ -19,6 +19,7 @@ export interface AgentState {
 export interface Task {
     id: string;
     type: TaskType;
+    title?: string;
     status: TaskStatus;
     description: string;
     reward: number;
